@@ -43,3 +43,14 @@ Tidsplan
 * v.05:
 * v.06: Rapportskrivandet ska avslutas för att 
 * v.07: Gymnasiearbetets ska avslutas både praktiska delen och rapportskrivning. 
+
+Övrigt
+------
+
+### Hjälp och tips
+
+Till terminalen:
+
+    ::GA
+    @doskey _ga=cd D:\Workspace\node\s-rt-mp-g
+    @doskey _node=cd D:\Workspace\node
