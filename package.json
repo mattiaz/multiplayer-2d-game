@@ -1,0 +1,17 @@
+{
+    "name": "SocketRtMpGame",
+    "version": "0.0.0",
+    "description": "a server for hosting multi player 2D games",
+    "author": "Mattias Ajander <mattias@ajander.se>",
+    "private": true,
+    "scripts": {
+        "start": "node server.js",
+        "debug": "node server.js --debug"
+    },
+    "dependencies": {
+        "express": "4.x",
+        "colors":  "1.x",
+        "websocket": "1.x"
+    },
+    "license": "http://creativecommons.org/licenses/by/4.0/ Creative commons share adapt attribution"
+}
