@@ -9,7 +9,6 @@
         "debug": "node server.js --debug"
     },
     "dependencies": {
-        "express": "4.x",
         "colors":  "1.x",
         "websocket": "1.x"
     },
