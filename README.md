@@ -54,3 +54,15 @@ Till terminalen:
     ::GA
     @doskey _ga=cd D:\Workspace\node\s-rt-mp-g
     @doskey _node=cd D:\Workspace\node
+
+Bra länkar:
+
+[Narrow Jombotron source](view-source:http://getbootstrap.com/examples/jumbotron-narrow/#)
+
+[Handlebars api](https://www.npmjs.org/package/express3-handlebars)
+
+[Socket.IO api](http://socket.io/)
+
+[Bootsrap components / doc](http://getbootstrap.com/components/)
+
+[Express api](http://expressjs.com/4x/api.html)

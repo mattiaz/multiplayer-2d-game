@@ -1,7 +1,7 @@
 {
     "name": "SocketRtMpGame",
-    "version": "0.0.0",
-    "description": "a server for hosting multi player 2D games",
+    "version": "0.0.1",
+    "description": "a server for hosting multiplayer 2D games",
     "author": "Mattias Ajander <mattias@ajander.se>",
     "private": true,
     "scripts": {
@@ -9,8 +9,11 @@
         "debug": "node server.js --debug"
     },
     "dependencies": {
-        "colors":  "1.x",
-        "websocket": "1.x"
+        "colors": "^1.0.3",
+        "express": "^4.10.1",
+        "node-sass-middleware": "^0.4.0",
+        "socket.io": "^1.2.0",
+        "express3-handlebars": "^0.5.2"
     },
-    "license": "http://creativecommons.org/licenses/by/4.0/ Creative commons share adapt attribution"
+    "license": "MIT"
 }
