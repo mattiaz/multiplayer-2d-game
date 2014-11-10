@@ -7,6 +7,7 @@ var exphbs  = require('express3-handlebars');
 var sockets = require('socket.io');
 var express = require('express');
 var colors  = require('colors');
+var url     = require('url');
 var fs      = require('fs');
 
 var settings = {
@@ -14,7 +15,7 @@ var settings = {
         port: 80
     },
     app: {
-        name: 'SocketRtMpGame'
+        name: '2D Game'
     }
 };
 
@@ -50,12 +51,24 @@ app.use('/public/css',
 app.use('/public', express.static(__dirname + '/public'));
 
 app.get('/', function(req, res, next){
-    res.render('home');
+    res.render('home', {show_nav:true});
+});
+
+app.get('/signup', function(req, res, next){
+    res.render('signup', {show_nav:true});
 });
 
 app.get('*', function(req, res){
     res.status(404).render('404', {
-        show_nav: false
+        show_nav: true,
+        helpers: {
+            title: function(){
+            return settings.app.name + ' - 404'
+            },
+            page: function(){
+            return url.parse(req.url).pathname
+            }
+        }
     });
 });
 

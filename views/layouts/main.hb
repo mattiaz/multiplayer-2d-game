@@ -9,7 +9,7 @@
         <meta name="description" content="a server for hosting multiplayer 2D games">
         <meta name="author" content="Mattias Ajander <mattias@ajander.se>">
 
-        <title>{{{title}}}</title>
+        <title>{{title}}</title>
 
         <link href="/public/css/bootstrap.css" rel="stylesheet">
         <link href="/public/css/narrow.css" rel="stylesheet">
@@ -30,15 +30,15 @@
             <div class="header">
                 {{#if show_nav}}
                     <ul class="nav nav-pills pull-right">
-                        <li class="active"><a href="#">Home</a></li>
-                        <li><a href="#">About</a></li>
-                        <li><a href="#">Contact</a></li>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="#">Login</a></li>
+                        <li><a href="/signup">Sign up</a></li>
                     </ul>
                 {{/if}}
-                <h3 class="text-muted">{{{name}}}</h3>
+                <h3 class="text-muted">{{name}}</h3>
             </div>
 
-            {{body}}
+            {{{body}}}
 
             <div class="footer">
                 <p>&copy; Mattias Ajander 2014</p>
