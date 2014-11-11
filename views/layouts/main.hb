@@ -31,7 +31,7 @@
                 {{#if show_nav}}
                     <ul class="nav nav-pills pull-right">
                         <li><a href="/">Home</a></li>
-                        <li><a href="#">Login</a></li>
+                        <li><a href="#" data-toggle="modal" data-target=".login-modal">Login</a></li>
                         <li><a href="/signup">Sign up</a></li>
                     </ul>
                 {{/if}}
@@ -45,6 +45,38 @@
             </div>
 
         </div>
+
+        <div class="modal fade login-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h5 class="modal-title">Login</h5>
+                </div>
+                    <div class="padding">
+                        <form role="form" action="./" method="POST">
+                            <div class="form-group">
+                                <label for="email">Email address</label>
+                                <input type="email" class="form-control" id="email" placeholder="name@host.com">
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Password</label>
+                                <input type="password" class="form-control" id="password" placeholder="password">
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox">Stay signed in</a>
+                                </label>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Sign up</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <script src="/public/js/jq.js"></script>
+        <script src="/public/js/bootstrap.min.js"></script>
 
     </body>
 
