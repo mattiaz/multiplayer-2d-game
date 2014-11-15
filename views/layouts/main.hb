@@ -31,7 +31,9 @@
                 {{#if show_nav}}
                     <ul class="nav nav-pills pull-right">
                         <li><a href="/">Home</a></li>
-                        <li><a href="#" data-toggle="modal" data-target=".login-modal">Login</a></li>
+                        {{#if login}}
+                            <li><a href="#" data-toggle="modal" data-target=".login-modal">Sign in</a></li>
+                        {{/if}}
                         <li><a href="/signup">Sign up</a></li>
                     </ul>
                 {{/if}}
@@ -51,7 +53,7 @@
                 <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                    <h5 class="modal-title">Login</h5>
+                    <h5 class="modal-title">Sign in</h5>
                 </div>
                     <div class="padding">
                         <form role="form" action="./" method="POST">
@@ -68,7 +70,7 @@
                                     <input type="checkbox">Stay signed in</a>
                                 </label>
                             </div>
-                            <button type="submit" class="btn btn-primary">Sign up</button>
+                            <button type="submit" class="btn btn-primary">Sign in</button>
                         </form>
                     </div>
                 </div>

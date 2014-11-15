@@ -2,13 +2,13 @@
 //  REQUIRE, SETTINGS AND VAR
 //
 
-var sass    = require('node-sass-middleware');
-var exphbs  = require('express3-handlebars');
-var sockets = require('socket.io');
-var express = require('express');
-var colors  = require('colors');
-var url     = require('url');
-var fs      = require('fs');
+var sass     = require('node-sass-middleware');
+var exphbs   = require('express3-handlebars');
+var sockets  = require('socket.io');
+var express  = require('express');
+var colors   = require('colors');
+var url      = require('url');
+var fs       = require('fs');
 
 var settings = {
     http: {
@@ -24,12 +24,15 @@ var app = express();
 var hbs = exphbs.create({
     extname: '.hb',
     defaultLayout: 'main',
+    show_nav: true,
     helpers: {
         name: function(){return settings.app.name;},
         title: function(){
             return settings.app.name + ' - Welcome'
         },
-        show_nav: function(){return true;}
+        login: function(){
+            return true
+        }
     }
 });
 

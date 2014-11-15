@@ -4,11 +4,11 @@
         <form role="form" action="./" method="POST">
             <div class="form-group">
                 <label for="username">Username</label>
-                <input type="text" class="form-control" id="username" placeholder="username">
+                <input type="text" class="form-control" id="username" placeholder="username" autocomplete="off" autofocus="off">
             </div>
             <div class="form-group">
                 <label for="email">Email address</label>
-                <input type="email" class="form-control" id="email" placeholder="name@host.com">
+                <input type="email" class="form-control" id="email" autocomplete="off" placeholder="name@host.com">
             </div>
             <div class="form-group">
                 <label for="password">Password</label>
