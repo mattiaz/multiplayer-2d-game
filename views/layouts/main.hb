@@ -32,9 +32,11 @@
                     <ul class="nav nav-pills pull-right">
                         <li><a href="/">Home</a></li>
                         {{#if login}}
+                            <li><a href="#">Sign out</a></li>
+                        {{else}}
                             <li><a href="#" data-toggle="modal" data-target=".login-modal">Sign in</a></li>
+                            <li><a href="/signup">Sign up</a></li>
                         {{/if}}
-                        <li><a href="/signup">Sign up</a></li>
                     </ul>
                 {{/if}}
                 <h3 class="text-muted">{{name}}</h3>
@@ -71,6 +73,7 @@
                                 </label>
                             </div>
                             <button type="submit" class="btn btn-primary">Sign in</button>
+                            <input type="hidden" name="action" value="login">
                         </form>
                     </div>
                 </div>
