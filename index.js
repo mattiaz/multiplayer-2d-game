@@ -3,7 +3,9 @@
 //
 
 var cookie_parser = require('cookie-parser');
+var json_save     = require('./util/save.js');
 var session       = require('express-session');
+var json_db       = require('node-json-db');
 var sockets       = require('socket.io');
 var express       = require('express');
 var exphbs        = require('express3-handlebars');
@@ -22,7 +24,10 @@ var settings = {
     }
 };
 
+var db_users = new json_db("save/users", true, true);
 var app = express();
+
+json_save.import_users(db_users);
 
 var hbs = exphbs.create({
     extname: '.hb',
@@ -66,6 +71,8 @@ app.use(session({
 }));
 
 app.use(function(req, res, next){
+
+    json_save.add_user(db_users, 'Bosse');
 
     if(req.session.auth){
 
