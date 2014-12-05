@@ -1,8 +1,46 @@
 //
+//  BASIC FUNCTIONS
+//
+
+console.log('');
+
+Date.prototype.yyyymmdd = function() {
+    var yyyy = this.getFullYear().toString();
+    var mm = (this.getMonth()+1).toString();
+    var dd = this.getDate().toString();
+    return yyyy + '-' + (mm[1]?mm:"0"+mm[0]) + '-' + (dd[1]?dd:"0"+dd[0]);
+};
+
+Date.prototype.hhmmss = function() {
+    var hh = this.getHours().toString();
+    var mm = this.getMinutes().toString();
+    var ss  = this.getSeconds().toString();
+    return (hh[1]?hh:"0"+hh[0]) + ':' + (mm[1]?mm:"0"+mm[0]) + ':' + (ss[1]?ss:"0"+ss[0]);
+};
+
+function _info(msg){
+    var date = new Date();
+    console.log('INFO'.cyan + ' [ ' + date.yyyymmdd().gray + ' | '.gray + date.hhmmss().gray + ' ]\n' + msg + '\n');
+}
+function _warning(msg){
+    var date = new Date();
+    console.log('WARNING'.yellow + ' [ ' + date.yyyymmdd().gray + ' | '.gray + date.hhmmss().gray + ' ]\n' + msg + '\n');
+}
+function _danger(msg){
+    var date = new Date();
+    console.log('DANGER'.red + ' [ ' + date.yyyymmdd().gray + ' | '.gray + date.hhmmss().gray + ' ]\n' + msg + '\n');
+}
+function _system(msg){
+    var date = new Date();
+    console.log('SYSTEM'.yellow + ' [ ' + date.yyyymmdd().gray + ' | '.gray + date.hhmmss().gray + ' ]\n' + msg + '\n');
+}
+
+//
 //  REQUIRE, SETTINGS AND VAR
 //
 
 var cookie_parser = require('cookie-parser');
+var socket_api    = require('./util/socket.js');
 var json_save     = require('./util/save.js');
 var session       = require('express-session');
 var json_db       = require('node-json-db');
@@ -25,7 +63,12 @@ var settings = {
 };
 
 var db_users = new json_db("save/users", true, true);
+
 var app = express();
+var server = require('http').Server(app);
+var io = require('socket.io')(server);
+
+var debug_play = '';
 
 json_save.import_users(db_users);
 
@@ -72,10 +115,8 @@ app.use(session({
 
 app.use(function(req, res, next){
 
-    json_save.add_user(db_users, 'Bosse');
-
     if(req.session.auth){
-
+        req.session.auth = true;
     }
     else{
         req.session.auth = false;
@@ -108,17 +149,20 @@ app.get('/play', function(req, res, next){
         layout: 'plain',
         helpers: {
             title: function(){
-            return settings.app.name + ' - Play'
+                return settings.app.name + ' - Play'
             },
             page: function(){
                 return url.parse(req.url).pathname
+            },
+            print: function(){
+                return debug_play
             }
         }
     });
 });
 
 app.post('*', function(req, res){
-    res.end('POST')
+    res.end('POST');
 });
 
 app.get('*', function(req, res){
@@ -149,6 +193,34 @@ app.use(function(error, req, res, next) {
     });
 });
 
-app.listen(settings.http.port, function(){
-    console.log('Hello!'.cyan);
+server.listen(settings.http.port, function(){
+    _info('Hello! A webserver is running @ port ' + settings.http.port.toString().yellow);
+    _danger('<lore></lore>');
+    _system('asfasddasdasd');
+    _warning('asdasdasdasdasd');
+});
+
+//
+//  SOCKET SERVER
+//
+
+io.set('authorization', function (handshakeData, accept) {
+    var domain = handshakeData.headers.referer.replace('http://','').replace('https://','').split(/[/?#]/)[0];
+    
+    if('localhost'==domain)
+        accept(null, true);
+    else 
+        return accept('Deny', false);
+});
+
+io.on('connection', function(socket){
+
+    debug_play = '';
+
+    socket_api(socket);
+
+    socket.on('disconnect', function(){
+        
+    });
+
 });
