@@ -1,3 +1,20 @@
 {
-    
+    "matt1az": {
+        "name": "matt1az",
+        "pass": "Gubbe123",
+        "id": "1286e15b-8c6d-8e89-3d00-b5fd45cd1cbc",
+        "joined": 1420547118650
+    },
+    "bosse": {
+        "name": "bosse",
+        "pass": "sossebosse",
+        "id": "348449fb-73c1-a901-73bd-110da272330a",
+        "joined": 1420547174395
+    },
+    "test": {
+        "name": "test",
+        "pass": "test",
+        "id": "321fc84f-f939-4a64-e5b6-91555898cbfd",
+        "joined": 1420622186782
+    }
 }

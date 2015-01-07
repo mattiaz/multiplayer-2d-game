@@ -1,0 +1,25 @@
+body{
+    margin: 0;
+    padding: 0;
+}
+#status{
+    background-color: #f1f1f1;
+    color: #2d2d2d;
+    display: none;
+}
+h1{
+    font-family: arial;
+    font-size: 4em;
+    margin-top: 0;
+}
+h2{
+    font-family: arial;
+    font-size: 2em;
+}
+#center{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+}
