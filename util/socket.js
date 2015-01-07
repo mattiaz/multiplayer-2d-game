@@ -39,6 +39,10 @@ module.exports = function(socket) {
         if(i != -1) {
             users.splice(i, 1);
         }
+        var j = users.indexOf(socket.username);
+        if(j != -1) {
+            users.splice(j, 1);
+        }
     });
 
     socket.on('alive', function(){
@@ -50,6 +54,10 @@ module.exports = function(socket) {
 
 module.exports.getUsers = function(){
     return users;
+}
+module.exports.getData = function(){
+    var data = "<em>Nothing here yet</em>";
+    return data;
 }
 module.exports.userExist = function(user){
     if(users.indexOf(user) >= 0){

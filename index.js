@@ -157,7 +157,15 @@ function message(user){
 
 // homepage, render home.hb
 app.get('/', function(req, res, next){
-    res.render('home', {show_nav:true, login:req.session.auth, helpers:{user: function(){return req.session.user}, message: function(){return message(req.session.user)}}});
+    res.render('home', {
+        show_nav:true,
+        login:req.session.auth,
+        helpers:{
+            user: function(){return req.session.user},
+            message: function(){return message(req.session.user)},
+            players: function(){return socket_api.getData()}
+        }
+    });
 });
 
 // signup, render signup.hb
