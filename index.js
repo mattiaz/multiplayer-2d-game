@@ -53,11 +53,14 @@ var colors        = require('colors');
 var sass          = require('node-sass-middleware');
 var util          = require('util');
 var url           = require('url');
-var fs            = require('fs');
 
 var settings = {
     http: {
-        port: 80
+        port: 80,
+        host:[
+            'localhost',
+            'mattias-pc'
+        ]
     },
     app: {
         name: '2D Game'
@@ -366,7 +369,7 @@ io.set('authorization', function (handshakeData, accept) {
     var user = json_save.get_user_uid(auth);
     var exist = socket_api.userExist(user);
 
-    if(!(domain == 'localhost' || domain == '10.60.24.206'))
+    if(settings.http.host.indexOf(domain) < 0)
         accept('host', false);
     else if(auth == null || user == null)
         accept('user', false);
@@ -389,3 +392,12 @@ io.on('connection', function(socket){
 setInterval(function(){
     socket_api.interval(io);
 }, 60*1000);
+
+process.stdin.resume();
+function exitHandler() {
+    socket_api.goodby();
+}
+
+//process.on('exit', exitHandler);
+process.on('SIGINT', exitHandler);
+//process.on('uncaughtException', exitHandler);

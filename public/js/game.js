@@ -1,57 +1,102 @@
+Game.tick = function () {
+    Game.ticks++;
+};
+
+Game.draw = function () {
+    Game.draws++;
+    Canvas.redraw();
+    Canvas.clear();
+};
+
 //
-//  INIT SOCKET
+//  Gameloop by nokarma.org
+//  @ http://nokarma.org/2011/02/02/javascript-game-development-the-game-loop/
 //
 
-// New socket.io
-var socket = io();
+Game.run = (function() {
+    var loops = 0, skipTicks = 1000 / Game.fps,
+        maxFrameSkip = 10,
+        nextGameTick = (new Date).getTime(),
+        lastGameTick;
 
-// New connection (or reconnect)
-socket.on('connect', function(msg){
-    console.log('connected!');
-});
+    return function() {
+        loops = 0;
 
-// Error on connect
-socket.on('error', function (reason){
-    if(reason == 'user'){
-        location.href = "/logout";
-    }
-    else if(reason == 'duplicate'){
-        popup('Sorry,', 'another client is playing on this account!');
-    }
-    else if(reason == 'host'){
-        popup('Sorry,', 'you can not play this game from this server!');
+        while ((new Date).getTime() > nextGameTick) {
+            Game.tick();
+            nextGameTick += skipTicks;
+            loops++;
+        }
+
+        if (loops) Game.draw();
+
+    };
+})();
+
+Game.setup = function() {
+
+    if (!this.setupDone) {
+        //Get width and height
+        Canvas.window.width = window.innerWidth;
+        Canvas.window.height = window.innerHeight;
+
+        //Create canvas elemanet
+        Canvas.canvas = document.createElement("canvas");
+        Canvas.canvas.id = "game";
+        Canvas.canvas.width = Canvas.window.width;
+        Canvas.canvas.height = Canvas.window.height;
+        Canvas.canvas.innerHTML = "Error, your browser does not support canvas elements.";
+
+        //Add element to body
+        document.body.appendChild(Canvas.canvas);
+        Canvas.context = Canvas.canvas.getContext('2d');
+
+        this.setupDone = true;
+        console.log("game setup done!");
+
     }
     else{
-        popup('Warning,', 'something went wrong while connecting to the server!');
-    }
-});
+        console.log("game setup already done!");
+    };
+};
 
-// Disconnected
-socket.on('disconnect', function(msg){
-    console.log('disconnected!');
-});
+Game.start = function() {
 
-socket.on('authorization', function(data){
-    console.log('authorization complete! data: ' + data);
-    socket.emit('alive', 'alive');
-    setInterval(function(){
-        console.log('I\'m alive...');
-        socket.emit('alive', 'alive');
-    },10*1000);
-});
+    if(!this.setupDone){
+        console.log("no game setup!");
+        return;
+    };
 
-function popup(title, desc){
-    $("#title").html(title);
-    $("#desc").html(desc);
-    $("#status").css('display', 'block');
-    $("#game").css('display', 'none');
-}
+    if(this.running){
+        console.log("game is already running!");
+        return;
+    };
 
-//
-//  INIT CANVAS
-//
+    (function() {
+        var onEachFrame;
 
-var canvas = {};
+        if (window.requestAnimationFrame) {
+            onEachFrame = function(cb) {
+            var _cb = function() { cb(); requestAnimationFrame(_cb); }
+            _cb();
+        };
+        } else if (window.mozRequestAnimationFrame) {
+            onEachFrame = function(cb) {
+            var _cb = function() { cb(); mozRequestAnimationFrame(_cb); }
+            _cb();
+        };
+        } else {
+            onEachFrame = function(cb) {
+            setInterval(cb, 1000 / 60);
+            }
+        }
+        
+        window.onEachFrame = onEachFrame;
 
-canvas.canvas = document.getElementById("game");
-canvas.context = canvas.canvas.getContext("2d");
+    })();
+
+    window.onEachFrame(Game.run);
+
+    Game.running = true;
+
+};

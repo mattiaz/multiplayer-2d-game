@@ -18,10 +18,17 @@ function _system(msg){
 //
 //  VARIABLES
 //
+var fs = require('fs');
 
 var users = [];
 var sockets = [];
 var alive = [];
+var map;
+
+fs.readFile('save/world1.map', 'utf8', function (err, data) {
+    if (err) throw err;
+    map = data;
+});
 
 module.exports = function(socket) {
 
@@ -32,6 +39,7 @@ module.exports = function(socket) {
         users.push(socket.username);
         sockets.push(socket);
         socket.emit('authorization', JSON.stringify({"username": socket.username, "uid": socket.uid}));
+        socket.emit('map', JSON.stringify({"data": map}));
     }
 
     socket.on('disconnect', function(){
@@ -70,9 +78,10 @@ module.exports.interval = function(){
     
     for (var i = sockets.length - 1; i >= 0; i--) {
         if(alive.indexOf(sockets[i].username) < 0){
-            _info('disconnected: ' + sockets[i].username);
-            sockets[0].disconnect();
-            var j = users.indexOf(sockets[0].username);
+            sockets[i].emit('status', JSON.stringify({"status": "disconnect", "message": "too long inactivity on this account"}));
+            sockets[i].disconnect();
+            _system('disconnected: ' + sockets[i].username);
+            var j = users.indexOf(sockets[i].username);
             if(j != -1) {
                 users.splice(j, 1);
             }
@@ -82,4 +91,11 @@ module.exports.interval = function(){
 
     alive.length = 0;
 
+}
+module.exports.goodby = function(){
+    for (var i = sockets.length - 1; i >= 0; i--) {
+        sockets[i].emit('status', JSON.stringify({"status": "goodby", "message": "server is shuting down"}));
+    };
+    _system('Shuting down!');
+    process.exit();
 }
