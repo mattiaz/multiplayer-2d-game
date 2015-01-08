@@ -1,5 +1,6 @@
 Game.tick = function () {
     Game.ticks++;
+    Game.playtime = (Date.now() - Game.joined) - 1000*60*60;
 };
 
 Game.draw = function () {

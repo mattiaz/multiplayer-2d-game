@@ -5,6 +5,14 @@
 // New socket.io
 var socket = io();
 var alive;
+var map = {
+    objects: null,
+    background: null
+}
+var auth = {
+    username : '',
+    uid: ''
+}
 
 // New connection (or reconnect)
 socket.on('connect', function(msg){
@@ -44,6 +52,8 @@ socket.on('status', function(status){
 
 socket.on('map', function(data){
     data = JSON.parse(data);
+    map.background = data.background;
+    map.objects = data.objects;
 });
 
 // Disconnected
@@ -55,6 +65,11 @@ socket.on('disconnect', function(msg){
 socket.on('authorization', function(data){
     console.log('authorization complete! data: ' + data);
     socket.emit('alive', 'alive');
+
+    data = JSON.parse(data);
+    auth.username = data.username;
+    auth.uid = data.uid;
+
     alive = setInterval(function(){
         socket.emit('alive', '{"alive": true}');
         console.log('alive...')
@@ -77,6 +92,8 @@ Game.setupDone = false;
 Game.fps = 60;
 Game.ticks = 0;
 Game.draws = 0;
+Game.joined = Date.now();
+Game.playtime = 0;
 
 // Canvas
 Canvas.canvas;
@@ -119,4 +136,11 @@ function popup(title, desc){
 
 function deleteCookie(name) {
     document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+};
+
+Date.prototype.hhmmss = function() {
+    var hh = this.getHours().toString();
+    var mm = this.getMinutes().toString();
+    var ss  = this.getSeconds().toString();
+    return (hh[1]?hh:""+hh[0]) + ' h ' + (mm[1]?mm:""+mm[0]) + ' m ' + (ss[1]?ss:""+ss[0]) + ' s';
 };
