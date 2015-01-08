@@ -42,6 +42,10 @@ socket.on('status', function(status){
 
 });
 
+socket.on('map', function(data){
+    data = JSON.parse(data);
+});
+
 // Disconnected
 socket.on('disconnect', function(msg){
     console.log('disconnected!');
@@ -100,6 +104,7 @@ Canvas.redraw = function () {};
 Canvas.getWidth = function () {};
 Canvas.getHeight = function () {};
 Canvas.clear = function () {};
+Canvas.paint = function () {};
 
 //
 //  HELPER FUNCTIONS

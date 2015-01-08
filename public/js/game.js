@@ -6,6 +6,7 @@ Game.draw = function () {
     Game.draws++;
     Canvas.redraw();
     Canvas.clear();
+    Canvas.paint();
 };
 
 //

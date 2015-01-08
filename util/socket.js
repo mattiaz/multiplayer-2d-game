@@ -23,11 +23,17 @@ var fs = require('fs');
 var users = [];
 var sockets = [];
 var alive = [];
-var map;
+var background;
+var objects;
 
-fs.readFile('save/world1.map', 'utf8', function (err, data) {
+fs.readFile('save/background.map', 'utf8', function (err, data) {
     if (err) throw err;
-    map = data;
+    background = data;
+});
+
+fs.readFile('save/objects.map', 'utf8', function (err, data) {
+    if (err) throw err;
+    objects = data;
 });
 
 module.exports = function(socket) {
@@ -39,7 +45,7 @@ module.exports = function(socket) {
         users.push(socket.username);
         sockets.push(socket);
         socket.emit('authorization', JSON.stringify({"username": socket.username, "uid": socket.uid}));
-        socket.emit('map', JSON.stringify({"data": map}));
+        socket.emit('map', JSON.stringify({"background": background, "objects": objects}));
     }
 
     socket.on('disconnect', function(){
