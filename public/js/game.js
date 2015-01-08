@@ -18,8 +18,11 @@ socket.on('error', function (reason){
     else if(reason == 'duplicate'){
         popup('Sorry,', 'another client is playing on this account!');
     }
+    else if(reason == 'host'){
+        popup('Sorry,', 'you can not play this game from this server!');
+    }
     else{
-        popup('Warning', 'Something went wrong while connecting to the server!');
+        popup('Warning,', 'something went wrong while connecting to the server!');
     }
 });
 

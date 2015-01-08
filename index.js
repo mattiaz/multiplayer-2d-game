@@ -366,7 +366,7 @@ io.set('authorization', function (handshakeData, accept) {
     var user = json_save.get_user_uid(auth);
     var exist = socket_api.userExist(user);
 
-    if(domain != 'localhost')
+    if(!(domain == 'localhost' || domain == '10.60.24.206'))
         accept('host', false);
     else if(auth == null || user == null)
         accept('user', false);
