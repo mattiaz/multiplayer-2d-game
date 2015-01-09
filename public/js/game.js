@@ -8,7 +8,19 @@ Game.draw = function () {
     Canvas.redraw();
     Canvas.clear();
     Canvas.paint();
+    Game.fpsCounter();
 };
+Game.fpsCounter = function() {
+
+  if(!Game.lastCalledTime) {
+     Game.lastCalledTime = Date.now();
+     Game.fps = 0;
+     return;
+  }
+  delta = (new Date().getTime() - Game.lastCalledTime)/1000;
+  Game.lastCalledTime = Date.now();
+  Game.fps = 1/delta;
+} ;
 
 //
 //  Gameloop by nokarma.org
@@ -16,7 +28,7 @@ Game.draw = function () {
 //
 
 Game.run = (function() {
-    var loops = 0, skipTicks = 1000 / Game.fps,
+    var loops = 0, skipTicks = 1000 / Game._fps,
         maxFrameSkip = 10,
         nextGameTick = (new Date).getTime(),
         lastGameTick;

@@ -29,6 +29,7 @@ Canvas.paint = function () {
     Canvas.context.fillStyle = "#f1f1f1";
     Canvas.context.font = "40px Arial";
     Canvas.context.fillText('Playtime: ' + new Date(Game.playtime).hhmmss(), 20, 50);
+    Canvas.context.fillText('Fps: ' + Game.fps, 20, 100);
 };
 
 //

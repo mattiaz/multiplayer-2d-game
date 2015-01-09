@@ -89,12 +89,13 @@ Items = {};
 Game.tickTimer;
 Game.running = false;
 Game.setupDone = false;
-Game.fps = 60;
+Game._fps = 60;
 Game.ticks = 0;
 Game.draws = 0;
 Game.joined = Date.now();
 Game.playtime = 0;
-
+Game.lastCalledTime = 0
+Game.fps = 0;
 // Canvas
 Canvas.canvas;
 Canvas.context;
