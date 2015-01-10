@@ -50,6 +50,7 @@ var sockets       = require('socket.io');
 var express       = require('express');
 var exphbs        = require('express3-handlebars');
 var colors        = require('colors');
+var crypto        = require('crypto');
 var sass          = require('node-sass-middleware');
 var util          = require('util');
 var url           = require('url');
@@ -63,7 +64,8 @@ var settings = {
         ]
     },
     app: {
-        name: '2D Game'
+        name: '2D Game',
+        secret: '3xT3rM!NAT3'
     }
 };
 
@@ -126,7 +128,7 @@ app.use(body_parser.urlencoded({
 
 // init of sessions
 app.use(session({
-    secret: '3xT3rM!NAT3',
+    secret: settings.app.secret,
     // maxage = 3h
     cookie: {
         maxAge: 3*60*60*1000
@@ -218,11 +220,15 @@ app.post('/signup', function(req, res){
         res.redirect('/signup#' + req.body.username);
     }
     else{
+
+        var salt = crypto.createHash('md5').update(password + new Date().getTime() + Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1)).digest('hex');
+
         username = username.toLowerCase();
+        password = crypto.createHash('md5').update(password + salt).digest('hex');
 
         var exist = json_save.get_user(username);
         if(exist == null){
-            json_save.add_user(username, password);
+            json_save.add_user(username, password, salt);
             res.redirect('/#' + req.body.username);
         }
         else{
@@ -242,8 +248,8 @@ app.post('/login', function(req, res){
     }
     else{
         username = username.toLowerCase();
-
         var user = json_save.get_user(username);
+        password = crypto.createHash('md5').update(password + user.salt).digest('hex');
 
         if(user == null){
             res.end('{"login": false, "error": "username"}');

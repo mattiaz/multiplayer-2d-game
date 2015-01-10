@@ -1,20 +1,35 @@
 {
-    "matt1az": {
-        "name": "matt1az",
-        "pass": "Gubbe123",
-        "id": "1286e15b-8c6d-8e89-3d00-b5fd45cd1cbc",
-        "joined": 1420547118650
+    "test": {
+        "name": "test",
+        "pass": "b0851669a5e815aa213402465a63ae1f",
+        "id": "04210191-c46b-6bd3-d9cd-bfbe98d1bd87",
+        "salt": "2f1c28e82611551f1e06285c891037a3",
+        "coorinates": {
+            "x": 0,
+            "y": 0
+        },
+        "joined": 1420830204143
     },
     "bosse": {
         "name": "bosse",
-        "pass": "sossebosse",
-        "id": "348449fb-73c1-a901-73bd-110da272330a",
-        "joined": 1420547174395
+        "pass": "eb228271aa67bfea85df8b8dc976e7a3",
+        "id": "220666aa-a05f-3cb8-3c9c-04ab6c90451c",
+        "salt": "6ea3c71e946c5083db1382c609fbf07a",
+        "coorinates": {
+            "x": 0,
+            "y": 0
+        },
+        "joined": 1420830266823
     },
-    "test": {
-        "name": "test",
-        "pass": "test",
-        "id": "321fc84f-f939-4a64-e5b6-91555898cbfd",
-        "joined": 1420622186782
+    "matt1az": {
+        "name": "matt1az",
+        "pass": "ba38fb30215274e7759bdd149ac38f15",
+        "id": "a57e3fa4-df4f-1362-8edf-aac570b889a7",
+        "salt": "a942e0a77ab450b451264e4f4a52096b",
+        "coorinates": {
+            "x": 0,
+            "y": 0
+        },
+        "joined": 1420830287507
     }
 }

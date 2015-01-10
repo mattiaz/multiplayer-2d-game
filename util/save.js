@@ -43,7 +43,7 @@ module.exports = {
     db_users = users;
     _system('Importing users');
     },
-    add_user: function(name, password){
+    add_user: function(name, password, salt){
 
         var id = guid();
 
@@ -53,6 +53,11 @@ module.exports = {
             name: name,
             pass: password,
             id: id,
+            salt: salt,
+            coorinates: {
+                x: 0,
+                y: 0
+            },
             joined: new Date().getTime()
         });
 

@@ -23,6 +23,8 @@ var fs = require('fs');
 var users = [];
 var sockets = [];
 var alive = [];
+var coordinates = [];
+
 var background;
 var objects;
 
