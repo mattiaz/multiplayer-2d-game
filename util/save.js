@@ -55,8 +55,8 @@ module.exports = {
             id: id,
             salt: salt,
             coordinates: {
-                x: 0,
-                y: 0
+                x: 4,
+                y: 8
             },
             joined: new Date().getTime()
         });
@@ -68,6 +68,8 @@ module.exports = {
         db_users.push('/' + name, {
             coordinates: coordinates
         }, false);
+
+        db_users.save();
     },
     get_user: function(name){
 
@@ -78,6 +80,18 @@ module.exports = {
             return null;
         }
 
+    },
+    new_uid: function(name){
+
+        var id = guid();
+
+        db_users.push('/' + name, {
+            id: id
+        }, false);
+
+        db_users.save();
+
+        return id;
     },
     get_user_uid: function(uid){
 

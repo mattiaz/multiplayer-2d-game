@@ -4,6 +4,8 @@
 
 var updateTextIn = 0;
 var updateTextFps;
+var sprite = new Image();
+sprite.src = '/public/sprites/sprite.png';
 
 Canvas.redraw = function () {
 
@@ -28,7 +30,9 @@ Canvas.paint = function () {
     Canvas.context.rect(0, 0, Canvas.getWidth(), Canvas.getHeight());
     Canvas.context.fillStyle = '#f1f1f1';
     Canvas.context.fill();
-    drawMap();
+
+    if(map.background != null)
+        drawMap();
 
     updateTextIn--;
     if(updateTextIn < 1){
@@ -36,16 +40,15 @@ Canvas.paint = function () {
         updateTextFps = Game.fps;
         updateTextFps = Math.round(updateTextFps*10)/10;
     }
-
-    Canvas.context.font = "40px Arial";
-    Canvas.context.fillText('FPS: ' + updateTextFps, 20, 50);
-    Canvas.context.fillText('X: ' + player.x, 20, 100);
-    Canvas.context.fillText('Y: ' + player.y, 20, 150);
 };
 
 //
 //  HELPER FUNCTIONS
 //
+
+function randomString(items){
+    return items[Math.floor(Math.random()*items.length)];
+}
 
 function getRandomColor() {
     var letters = '0123456789ABCDEF'.split('');
@@ -103,27 +106,114 @@ function drawMap(){
     for(var x = 0; x < tiles; x++){
         for(var y = 0; y < tiles; y++){
 
-            Canvas.context.beginPath();
-            Canvas.context.rect(left + (tile*x), top + (tile*y), tile, tile);
+            var x_board = Math.floor(player.x / tiles);
+            var y_board = Math.floor(player.y / tiles);
 
-            Canvas.context.fillStyle = "#2d2d2d";
+            var _x = x + (tiles*x_board);
+            var _y = y + (tiles*y_board);
+
+            Canvas.context.beginPath();
+            Canvas.context.rect(left + (tile*x) - 1, top + (tile*y) - 1, tile + 1 , tile + 1);
+
+            var _tile = getTile(_x, _y);
+            var color = getTileColor(_tile);
+
+            Canvas.context.fillStyle = color;
 
             for(var _player in coordinates){
 
                 if(_player == auth.username){
 
                 }
-                else if(x == coordinates[_player].x && y == coordinates[_player].y){
-                    Canvas.context.fillStyle = "#99CC00";
+                else if(_x == coordinates[_player].x && _y == coordinates[_player].y){
+                    Canvas.context.fillStyle = "#f1f1f1";
                 }
+
             }
 
-            if(x == player.x && y == player.y)
-                Canvas.context.fillStyle = "#00CED1";
+            if(_x == player.x && _y == player.y)
+                Canvas.context.fillStyle = "#f1f1f1";
             
             Canvas.context.fill();
 
         }
     }
+
+    for(var x = 0; x < tiles; x++){
+        for(var y = 0; y < tiles; y++){
+
+            var x_board = Math.floor(player.x / tiles);
+            var y_board = Math.floor(player.y / tiles);
+
+            var _x = x + (tiles*x_board);
+            var _y = y + (tiles*y_board);
+
+            for(var _player in coordinates){
+                if(_x == coordinates[_player].x && _y == coordinates[_player].y && _player != auth.username){
+                    Canvas.context.textAlign = 'center';
+                    Canvas.context.font = "25px Arial";
+                    var length = Canvas.context.measureText(_player).width;
+                    Canvas.context.beginPath();
+                    Canvas.context.fillStyle = "rgba(0,0,0,0.2)";
+                    Canvas.context.rect(left + (tile*x) + (tile/2) - (length/2) - 5, top + (tile*y) - 41, length + 10, 25);
+                    Canvas.context.fill();
+
+                    Canvas.context.fillStyle = "rgba(255,255,255,0.4)";
+                    Canvas.context.fillText(_player, left + (tile*x) + (tile/2), top + (tile*y) - 20);
+                }
+                else if(_x == player.x && _y == player.y && _player != auth.username){
+                    Canvas.context.textAlign = 'center';
+                    Canvas.context.font = "25px Arial";
+                    var length = Canvas.context.measureText('You').width;
+                    Canvas.context.beginPath();
+                    Canvas.context.fillStyle = "rgba(0,0,0,0.2)";
+                    Canvas.context.rect(left + (tile*x) + (tile/2) - (length/2) - 5, top + (tile*y) - 41, length + 10, 25);
+                    Canvas.context.fill();
+
+                    Canvas.context.fillStyle = "rgba(255,255,255,0.4)";
+                    Canvas.context.fillText('You', left + (tile*x) + (tile/2), top + (tile*y) - 20);
+                }
+            }
+        }
+    }
+
+    Canvas.context.font = "25px Arial";
+    Canvas.context.textAlign = 'left';
+    var length = Canvas.context.measureText('FPS: 60.00').width;
+
+    Canvas.context.beginPath();
+    Canvas.context.fillStyle = "rgba(0,0,0,0.2)";
+    Canvas.context.rect(left, top, length, 75);
+    Canvas.context.fill();
+
+    Canvas.context.fillStyle = "rgba(255,255,255,0.8)";
+    Canvas.context.fillText('FPS: ' + updateTextFps, left + 5, top + 22);
+    Canvas.context.fillText('X: ' + player.x, left + 5, 45);
+    Canvas.context.fillText('Y: ' + player.y, left + 5, 70);
+
+}
+
+function getTile(x, y){
+
+    var pos = (100*y) + x;
+
+    return map.background.replace(/(\r\n|\n|\r)/gm,"").charAt(pos);
+
+}
+function getTileColor(tile){
+    if(tile == 'g')
+        return '#526F35';
+    if(tile == 'w')
+        return '#CEDFEF';
+    if(tile == 's')
+        return '#2d2d2d';
+    if(tile == 'r')
+        return '#ea3c3c';
+    if(tile == 'b')
+        return '#603E11';
+    if(tile == 't')
+        return '#003200';
+
+    return '#f1f1f1';
 
 }

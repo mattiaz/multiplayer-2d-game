@@ -18,6 +18,7 @@ var player = {
     y: null
 }
 var coordinates = [];
+var connected = false;
 var allowMove = false;
 var keyMove = true;
 var keyMoveTimer;
@@ -38,7 +39,7 @@ socket.on('error', function (reason){
     else if(reason == 'host'){
         popup('Warning,', 'you are connecting from an invalid host address');
     }
-    else{
+    else if(connected){
         popup('Warning,', 'something went wrong while connecting to the server!');
     }
 });
@@ -51,10 +52,12 @@ socket.on('status', function(status){
     if(status.status == 'disconnect'){
         popup('Info,', status.message);
         deleteCookie('auth');
+        connected = false;
     }
     if(status.status == 'goodby'){
         popup('Info,', status.message);
         deleteCookie('auth');
+        connected = false;
     }
     if(status.status == 'coordinates'){
         allowMove = true;
@@ -84,6 +87,7 @@ socket.on('position', function(data){
 socket.on('disconnect', function(msg){
     console.log('disconnected!');
     clearInterval(alive);
+    connected = false;
 });
 
 socket.on('authorization', function(data){
@@ -184,7 +188,7 @@ Date.prototype.hhmmss = function() {
 //
 
 $(document).keydown(function (event){
-    
+
     if(keyMove == false){
         return;
     }
@@ -195,26 +199,60 @@ $(document).keydown(function (event){
         }, 100);
     }
 
+    var noMove = ['w', 's', 't'];
+
     var key = event.keyCode;
     var onChange = false;
 
     // left
-    if(key == 37 && allowMove){
+    if(key == 37 && allowMove && player.x > 0){
+        for(var _player in coordinates){
+            var _x = coordinates[_player].x;
+            var _y = coordinates[_player].y;
+            if(_player != auth.username && _x == player.x - 1 && player.y == _y)
+                return;
+        }
+        if(noMove.indexOf(getTile(player.x - 1, player.y)) > -1)
+            return;
         player.x--;
         onChange = true;
     }
-    // down
-    if(key == 38 && allowMove){
+    // up
+    if(key == 38 && allowMove && player.y > 0){
+        for(var _player in coordinates){
+            var _x = coordinates[_player].x;
+            var _y = coordinates[_player].y;
+            if(_player != auth.username && _x == player.x && player.y - 1 == _y)
+                return;
+        }
+        if(noMove.indexOf(getTile(player.x, player.y - 1)) > -1)
+            return;
         player.y--;
         onChange = true;
     }
     // right
-    if(key == 39 && allowMove){
+    if(key == 39 && allowMove && player.x < 99){
+        for(var _player in coordinates){
+            var _x = coordinates[_player].x;
+            var _y = coordinates[_player].y;
+            if(_player != auth.username && _x == player.x + 1 && player.y == _y)
+                return;
+        }
+        if(noMove.indexOf(getTile(player.x + 1, player.y)) > -1)
+            return;
         player.x++;
         onChange = true;
     }
-    // up
-    if(key == 40 && allowMove){
+    // down
+    if(key == 40 && allowMove && player.y < 99){
+        for(var _player in coordinates){
+            var _x = coordinates[_player].x;
+            var _y = coordinates[_player].y;
+            if(_player != auth.username && _x == player.x && player.y + 1 == _y)
+                return;
+        }
+        if(noMove.indexOf(getTile(player.x, player.y + 1)) > -1)
+            return;
         player.y++;
         onChange = true;
     }

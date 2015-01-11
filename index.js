@@ -258,11 +258,12 @@ app.post('/login', function(req, res){
             res.end('{"login": false, "error": "password"}');
         }
         else{
+            var token = json_save.new_uid(username);
             req.session.auth = true;
             req.session.user = username;
-            req.session.uid = user.id;
+            req.session.uid = token;
             req.session.save();
-            res.cookie('auth', user.id, { maxAge: 3*60*60*1000 });
+            res.cookie('auth', token, { maxAge: 3*60*60*1000 });
             res.end('{"login": ' + req.session.auth + ', "user": "' + req.session.user + '"}');
         }
 

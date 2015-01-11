@@ -26,19 +26,18 @@ var alive = [];
 var coordinates = {};
 
 var background;
-var objects;
 
 fs.readFile('save/background.map', 'utf8', function (err, data) {
     if (err) throw err;
     background = data;
 });
 
-fs.readFile('save/objects.map', 'utf8', function (err, data) {
-    if (err) throw err;
-    objects = data;
-});
-
 module.exports = function(socket) {
+
+    fs.readFile('save/background.map', 'utf8', function (err, data) {
+        if (err) throw err;
+        background = data;
+    });
 
     if(users.indexOf(socket.username) >= 0){
         socket.disconnect();
@@ -49,7 +48,7 @@ module.exports = function(socket) {
         coordinates[socket.username] = socket.coordinates;
 
         socket.emit('authorization', JSON.stringify({"username": socket.username, "uid": socket.uid}));
-        socket.emit('map', JSON.stringify({"background": background, "objects": objects}));
+        socket.emit('map', JSON.stringify({"background": background}));
         socket.emit('position', JSON.stringify(coordinates));
         socket.broadcast.emit('position', JSON.stringify(coordinates));
     }
@@ -119,6 +118,7 @@ module.exports.interval = function(){
 module.exports.goodby = function(){
     for (var i = sockets.length - 1; i >= 0; i--) {
         sockets[i].emit('status', JSON.stringify({"status": "goodby", "message": "server is shutting down, all progress is saved"}));
+        sockets[i].json_save.save_coordinates(sockets[i].username, coordinates[sockets[i].username]);
     };
     _system('Shuting down!');
     process.exit();
