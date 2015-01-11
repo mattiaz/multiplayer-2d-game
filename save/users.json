@@ -2,11 +2,11 @@
     "admin": {
         "name": "admin",
         "pass": "9684e191fc7578d9518f2a108d12d9af",
-        "id": "f2e52a7a-7f81-ad31-5d34-894ffb2c01aa",
+        "id": "76473e09-333a-b3f7-1c31-c54f1daac44b",
         "salt": "04ab97549abda3f77f347bf63b123fd2",
         "coordinates": {
-            "x": 87,
-            "y": 59
+            "x": 4,
+            "y": 8
         },
         "joined": 1421005437368
     },
@@ -16,8 +16,8 @@
         "id": "c708c012-89de-4f23-5056-26d63f819a56",
         "salt": "4a843ca68ec44c1d6070c32eae42f82c",
         "coordinates": {
-            "x": 13,
-            "y": 16
+            "x": 4,
+            "y": 8
         },
         "joined": 1421006893296
     }

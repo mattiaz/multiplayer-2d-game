@@ -273,6 +273,8 @@ app.post('/login', function(req, res){
 
 // sign out, redirect back home
 app.get('/logout', function(req, res){
+    if(req.session.user != null)
+        json_save.new_uid(req.session.user);
     req.session.auth = false;
     req.session.user = null;
     req.session.uid = null;
