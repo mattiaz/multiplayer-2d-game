@@ -54,7 +54,7 @@ module.exports = {
             pass: password,
             id: id,
             salt: salt,
-            coorinates: {
+            coordinates: {
                 x: 0,
                 y: 0
             },
@@ -63,6 +63,11 @@ module.exports = {
 
         db_users.save();
 
+    },
+    save_coordinates: function(name, coordinates){
+        db_users.push('/' + name, {
+            coordinates: coordinates
+        }, false);
     },
     get_user: function(name){
 

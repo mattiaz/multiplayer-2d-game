@@ -23,7 +23,7 @@ var fs = require('fs');
 var users = [];
 var sockets = [];
 var alive = [];
-var coordinates = [];
+var coordinates = {};
 
 var background;
 var objects;
@@ -46,11 +46,21 @@ module.exports = function(socket) {
     else{
         users.push(socket.username);
         sockets.push(socket);
+        coordinates[socket.username] = socket.coordinates;
+
         socket.emit('authorization', JSON.stringify({"username": socket.username, "uid": socket.uid}));
         socket.emit('map', JSON.stringify({"background": background, "objects": objects}));
+        socket.emit('position', JSON.stringify(coordinates));
+        socket.broadcast.emit('position', JSON.stringify(coordinates));
     }
 
     socket.on('disconnect', function(){
+
+        socket.json_save.save_coordinates(socket.username, coordinates[socket.username]);
+
+        delete coordinates[socket.username];
+        socket.broadcast.emit('position', JSON.stringify(coordinates));
+
         var i = users.indexOf(socket.username);
         if(i != -1) {
             users.splice(i, 1);
@@ -59,6 +69,12 @@ module.exports = function(socket) {
         if(j != -1) {
             users.splice(j, 1);
         }
+    });
+
+    socket.on('position', function(data){
+        coordinates[socket.username] = JSON.parse(data);
+        socket.broadcast.emit('position', JSON.stringify(coordinates));
+        socket.emit('status', JSON.stringify({"status": "coordinates"}));
     });
 
     socket.on('alive', function(){
@@ -102,7 +118,7 @@ module.exports.interval = function(){
 }
 module.exports.goodby = function(){
     for (var i = sockets.length - 1; i >= 0; i--) {
-        sockets[i].emit('status', JSON.stringify({"status": "goodby", "message": "server is shuting down"}));
+        sockets[i].emit('status', JSON.stringify({"status": "goodby", "message": "server is shutting down, all progress is saved"}));
     };
     _system('Shuting down!');
     process.exit();

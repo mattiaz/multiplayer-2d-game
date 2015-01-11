@@ -101,7 +101,7 @@ Game.start = function() {
         };
         } else {
             onEachFrame = function(cb) {
-            setInterval(cb, 1000 / 60);
+            setInterval(cb, 1000 / Game._fps);
             }
         }
         

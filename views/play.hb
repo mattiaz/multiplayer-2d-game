@@ -12,8 +12,3 @@
 <script src="/public/js/setup.js"></script>
 <script src="/public/js/game.js"></script>
 <script src="/public/js/draw.js"></script>
-
-<script>
-    Game.setup();
-    Game.start();
-</script>

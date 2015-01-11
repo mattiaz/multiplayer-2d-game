@@ -1,23 +1,12 @@
 {
-    "test": {
-        "name": "test",
-        "pass": "b0851669a5e815aa213402465a63ae1f",
-        "id": "04210191-c46b-6bd3-d9cd-bfbe98d1bd87",
-        "salt": "2f1c28e82611551f1e06285c891037a3",
-        "coorinates": {
-            "x": 0,
-            "y": 0
-        },
-        "joined": 1420830204143
-    },
     "bosse": {
         "name": "bosse",
         "pass": "eb228271aa67bfea85df8b8dc976e7a3",
         "id": "220666aa-a05f-3cb8-3c9c-04ab6c90451c",
         "salt": "6ea3c71e946c5083db1382c609fbf07a",
-        "coorinates": {
-            "x": 0,
-            "y": 0
+        "coordinates": {
+            "x": 9,
+            "y": 3
         },
         "joined": 1420830266823
     },
@@ -26,10 +15,21 @@
         "pass": "ba38fb30215274e7759bdd149ac38f15",
         "id": "a57e3fa4-df4f-1362-8edf-aac570b889a7",
         "salt": "a942e0a77ab450b451264e4f4a52096b",
-        "coorinates": {
+        "coordinates": {
             "x": 0,
             "y": 0
         },
         "joined": 1420830287507
+    },
+    "test": {
+        "name": "test",
+        "pass": "4a6e3bbf1b6dbb5a0a4c01036676cac5",
+        "id": "37346b8c-e686-f29d-fef0-770b2f41b69b",
+        "salt": "e7d17d77b8a27474788264285b1fbb7b",
+        "coordinates": {
+            "x": 0,
+            "y": 0
+        },
+        "joined": 1420974973559
     }
 }

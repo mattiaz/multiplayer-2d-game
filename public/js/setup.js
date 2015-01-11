@@ -13,6 +13,14 @@ var auth = {
     username : '',
     uid: ''
 }
+var player = {
+    x: null,
+    y: null
+}
+var coordinates = [];
+var allowMove = false;
+var keyMove = true;
+var keyMoveTimer;
 
 // New connection (or reconnect)
 socket.on('connect', function(msg){
@@ -36,6 +44,7 @@ socket.on('error', function (reason){
 });
 
 socket.on('status', function(status){
+
     console.log('status update! data: ' + status);
     status = JSON.parse(status);
 
@@ -47,6 +56,9 @@ socket.on('status', function(status){
         popup('Info,', status.message);
         deleteCookie('auth');
     }
+    if(status.status == 'coordinates'){
+        allowMove = true;
+    }
 
 });
 
@@ -54,6 +66,18 @@ socket.on('map', function(data){
     data = JSON.parse(data);
     map.background = data.background;
     map.objects = data.objects;
+});
+
+socket.on('position', function(data){
+    coordinates = JSON.parse(data);
+    // console.log('new coordinates! data: ' + data);
+
+    if(player.x == null || player.y == null){
+        var user = coordinates[auth.username];
+        player.x = user.x;
+        player.y = user.y;
+    }
+
 });
 
 // Disconnected
@@ -74,6 +98,12 @@ socket.on('authorization', function(data){
         socket.emit('alive', '{"alive": true}');
         console.log('alive...')
     }, 10*1000);
+
+    Game.setup();
+    Game.start();
+
+    allowMove = true;
+
 });
 
 //
@@ -83,7 +113,6 @@ socket.on('authorization', function(data){
 // Objects
 Game = {};
 Canvas = {};
-Items = {};
 
 // Game
 Game.tickTimer;
@@ -96,6 +125,7 @@ Game.joined = Date.now();
 Game.playtime = 0;
 Game.lastCalledTime = 0
 Game.fps = 0;
+
 // Canvas
 Canvas.canvas;
 Canvas.context;
@@ -110,14 +140,12 @@ Canvas.visibleArea.x = null;
 Canvas.visibleArea.y = null;
 
 // Game
-
 Game.run = function () {};
 Game.tick = function () {};
 Game.draw = function () {};
 Game.start = function () {};
 
 // Canvas
-
 Canvas.redraw = function () {};
 Canvas.getWidth = function () {};
 Canvas.getHeight = function () {};
@@ -139,9 +167,63 @@ function deleteCookie(name) {
     document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
 };
 
+function updatePosition(x,y){
+    socket.emit('position', JSON.stringify(player));
+    allowMove = false;
+}
+
 Date.prototype.hhmmss = function() {
     var hh = this.getHours().toString();
     var mm = this.getMinutes().toString();
     var ss  = this.getSeconds().toString();
     return (hh[1]?hh:""+hh[0]) + ' h ' + (mm[1]?mm:""+mm[0]) + ' m ' + (ss[1]?ss:""+ss[0]) + ' s';
 };
+
+//
+// KEYBOARD EVENTS
+//
+
+$(document).keydown(function (event){
+    
+    if(keyMove == false){
+        return;
+    }
+    else{
+        keyMove = false;
+        keyMoveTimer = setTimeout(function(){
+            keyMove = true;
+        }, 100);
+    }
+
+    var key = event.keyCode;
+    var onChange = false;
+
+    // left
+    if(key == 37 && allowMove){
+        player.x--;
+        onChange = true;
+    }
+    // down
+    if(key == 38 && allowMove){
+        player.y--;
+        onChange = true;
+    }
+    // right
+    if(key == 39 && allowMove){
+        player.x++;
+        onChange = true;
+    }
+    // up
+    if(key == 40 && allowMove){
+        player.y++;
+        onChange = true;
+    }
+
+    if(onChange){
+        updatePosition(player.x, player.y);
+    }
+
+}).on('keyup', function(e) {
+    clearTimeout(keyMoveTimer);
+    keyMove = true;
+});

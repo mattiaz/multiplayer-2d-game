@@ -19,6 +19,6 @@
     <p>Check out some dev stuffs: <a href="/test">test page</a>. A debugger page with all active users and more.</p>
 
     <h4>Credits</h4>
-    <p>A project made by Mattias Ajander. <br>Twitter: <a href="http://twitter.com/mattiasajander">@mattiasajander</a><br>Github: <a href="https://github.com/mattiaz">mattiaz</a></p>
+    <p>A project made by Mattias Ajander. <br>Twitter: <a href="http://twitter.com/mattiasajander">@mattiasajander</a><br>Github: <a href="https://github.com/mattiaz">@mattiaz</a></p>
     </div>
 </div>

@@ -390,7 +390,10 @@ io.on('connection', function(socket){
 
     var cookies = parseCookies(socket.handshake);
     socket.username = json_save.get_user_uid(cookies.auth);
+    socket.json_save = json_save;
+    var user = json_save.get_user(socket.username);
     socket.uid = cookies.auth;
+    socket.coordinates = user.coordinates;
     socket_api(socket);
 
 });
