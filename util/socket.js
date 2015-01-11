@@ -34,11 +34,6 @@ fs.readFile('save/background.map', 'utf8', function (err, data) {
 
 module.exports = function(socket) {
 
-    fs.readFile('save/background.map', 'utf8', function (err, data) {
-        if (err) throw err;
-        background = data;
-    });
-
     if(users.indexOf(socket.username) >= 0){
         socket.disconnect();
     }
@@ -48,7 +43,11 @@ module.exports = function(socket) {
         coordinates[socket.username] = socket.coordinates;
 
         socket.emit('authorization', JSON.stringify({"username": socket.username, "uid": socket.uid}));
-        socket.emit('map', JSON.stringify({"background": background}));
+        fs.readFile('save/background.map', 'utf8', function (err, data) {
+        if (err) throw err;
+            background = data;
+            socket.emit('map', JSON.stringify({"background": background}));
+        });
         socket.emit('position', JSON.stringify(coordinates));
         socket.broadcast.emit('position', JSON.stringify(coordinates));
     }

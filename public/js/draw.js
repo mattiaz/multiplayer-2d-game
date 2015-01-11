@@ -211,8 +211,18 @@ function getTileColor(tile){
         return '#ea3c3c';
     if(tile == 'b')
         return '#603E11';
+    if(tile == 'f')
+        return '#6495ED';
     if(tile == 't')
         return '#003200';
+    if(tile == 'y')
+        return '#c2b280';
+    if(tile == 'd')
+        return '#005000';
+    if(tile == 'p')
+        return '#8B8682';
+    if(tile == 'o')
+        return '#302013';
 
     return '#f1f1f1';
 

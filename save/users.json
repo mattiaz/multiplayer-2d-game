@@ -1,35 +1,24 @@
 {
+    "admin": {
+        "name": "admin",
+        "pass": "9684e191fc7578d9518f2a108d12d9af",
+        "id": "f2e52a7a-7f81-ad31-5d34-894ffb2c01aa",
+        "salt": "04ab97549abda3f77f347bf63b123fd2",
+        "coordinates": {
+            "x": 87,
+            "y": 59
+        },
+        "joined": 1421005437368
+    },
     "bosse": {
         "name": "bosse",
-        "pass": "eb228271aa67bfea85df8b8dc976e7a3",
-        "id": "2b365a23-ba28-bd60-f199-98a4aa71d218",
-        "salt": "6ea3c71e946c5083db1382c609fbf07a",
+        "pass": "de1d4c66d7645452cd0162a5534ef727",
+        "id": "c708c012-89de-4f23-5056-26d63f819a56",
+        "salt": "4a843ca68ec44c1d6070c32eae42f82c",
         "coordinates": {
-            "x": 7,
-            "y": 13
-        },
-        "joined": 1420830266823
-    },
-    "matt1az": {
-        "name": "matt1az",
-        "pass": "ba38fb30215274e7759bdd149ac38f15",
-        "id": "b467210b-dc7d-4a0b-9bbe-7383f96441e0",
-        "salt": "a942e0a77ab450b451264e4f4a52096b",
-        "coordinates": {
-            "x": 19,
-            "y": 5
-        },
-        "joined": 1420830287507
-    },
-    "test": {
-        "name": "test",
-        "pass": "4a6e3bbf1b6dbb5a0a4c01036676cac5",
-        "id": "1ccda486-565d-bfaa-161f-6be6191aeef4",
-        "salt": "e7d17d77b8a27474788264285b1fbb7b",
-        "coordinates": {
-            "x": 8,
+            "x": 13,
             "y": 16
         },
-        "joined": 1420974973559
+        "joined": 1421006893296
     }
 }

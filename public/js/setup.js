@@ -199,7 +199,7 @@ $(document).keydown(function (event){
         }, 100);
     }
 
-    var noMove = ['w', 's', 't'];
+    var noMove = ['w', 's', 't', 'o'];
 
     var key = event.keyCode;
     var onChange = false;
