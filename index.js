@@ -60,7 +60,8 @@ var settings = {
         port: 80,
         host:[
             'localhost',
-            'mattias-pc'
+            'mattias-pc',
+            '10.60.24.206'
         ]
     },
     app: {
