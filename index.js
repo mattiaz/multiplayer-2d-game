@@ -108,13 +108,13 @@ app.set('view engine', '.hb');
 app.use(favicon("public/icon/square.ico")); 
 
 // dev only, compress and build .scss to .css
-app.use('/public/css',
+/*app.use('/public/css',
     sass({
         src: __dirname + '/public/css/',
         debug: false,
         outputStyle: 'compressed'
     })
-);
+);*/
 
 // static folder
 app.use('/public', express.static(__dirname + '/public'));

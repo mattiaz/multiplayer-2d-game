@@ -161,19 +161,20 @@ function drawMap(){
                     Canvas.context.fillStyle = "rgba(255,255,255,0.4)";
                     Canvas.context.fillText(_player, left + (tile*x) + (tile/2), top + (tile*y) - 20);
                 }
-                else if(_x == player.x && _y == player.y && _player != auth.username){
-                    Canvas.context.textAlign = 'center';
-                    Canvas.context.font = "25px Arial";
-                    var length = Canvas.context.measureText('You').width;
-                    Canvas.context.beginPath();
-                    Canvas.context.fillStyle = "rgba(0,0,0,0.2)";
-                    Canvas.context.rect(left + (tile*x) + (tile/2) - (length/2) - 5, top + (tile*y) - 41, length + 10, 25);
-                    Canvas.context.fill();
-
-                    Canvas.context.fillStyle = "rgba(255,255,255,0.4)";
-                    Canvas.context.fillText('You', left + (tile*x) + (tile/2), top + (tile*y) - 20);
-                }
             }
+            if(_x == player.x && _y == player.y){
+                Canvas.context.textAlign = 'center';
+                Canvas.context.font = "25px Arial";
+                var length = Canvas.context.measureText('You').width;
+                Canvas.context.beginPath();
+                Canvas.context.fillStyle = "rgba(0,0,0,0.2)";
+                Canvas.context.rect(left + (tile*x) + (tile/2) - (length/2) - 5, top + (tile*y) - 41, length + 10, 25);
+                Canvas.context.fill();
+
+                Canvas.context.fillStyle = "rgba(255,255,255,0.4)";
+                Canvas.context.fillText('You', left + (tile*x) + (tile/2), top + (tile*y) - 20);
+            }
+
         }
     }
 
