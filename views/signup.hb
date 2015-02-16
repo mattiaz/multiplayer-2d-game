@@ -4,7 +4,7 @@
         <form role="form" action="" method="POST">
             <div class="form-group" id="userform">
                 <label class="control-label" for="username">Username</label>
-                <input type="text" class="form-control" id="username" placeholder="username" name="username" autocomplete="off" autofocus="off">
+                <input type="text" class="form-control" id="username" placeholder="username" name="username" maxlength="10" autocomplete="off" autofocus="off">
             </div>
             <div class="form-group">
                 <label for="password">Password</label>

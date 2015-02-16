@@ -86,7 +86,14 @@ module.exports.getUsers = function(){
     return users;
 }
 module.exports.getData = function(){
-    var data = "<em>Nothing here yet</em>";
+    var data = "<ul class='no-indent'>";
+
+    for (var i = 0; i < users.length; i++) {
+        data += '<li>' + users[i] + ' [x: ' + coordinates[users[i]].x + ', y: ' + coordinates[users[i]].y + ']</li>';
+    };
+
+    data += '</ul>';
+    data = "<em>All in-game users (" + i + "):</em>" + data;
     return data;
 }
 module.exports.userExist = function(user){

@@ -15,9 +15,6 @@
     </div>
 
     <div class="col-lg-6">
-    <h4>Development</h4>
-    <p>Check out some dev stuffs: <a href="/test">test page</a>. A debugger page with all active users and more.</p>
-
     <h4>Credits</h4>
     <p>A project made by Mattias Ajander. <br>Twitter: <a href="http://twitter.com/mattiasajander">@mattiasajander</a><br>Github: <a href="https://github.com/mattiaz">@mattiaz</a></p>
     </div>

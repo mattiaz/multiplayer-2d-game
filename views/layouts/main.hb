@@ -62,7 +62,7 @@
                     <div class="padding">
                         <form role="form" action="/login" method="POST" id="form">
                             <div class="form-group" id="username">
-                                <label class="control-label" for="email">Username</label>
+                                <label class="control-label" for="username">Username</label>
                                 <input type="text" class="form-control" name="username" autocomplete="off" placeholder="username">
                             </div>
                             <div class="form-group" id="password">

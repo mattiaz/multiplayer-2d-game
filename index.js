@@ -217,7 +217,7 @@ app.post('/signup', function(req, res){
     var username = req.body.username;
     var password = req.body.password;
 
-    if(username == "" || password == "" || username == null || password == null){
+    if(username == "" || password == "" || username == null || password == null || username.length > 10) {
         res.redirect('/signup#' + req.body.username);
     }
     else{
@@ -250,7 +250,10 @@ app.post('/login', function(req, res){
     else{
         username = username.toLowerCase();
         var user = json_save.get_user(username);
-        password = crypto.createHash('md5').update(password + user.salt).digest('hex');
+        if (user != null)
+            password = crypto.createHash('md5').update(password + user.salt).digest('hex');
+        else
+            password = '';
 
         if(user == null){
             res.end('{"login": false, "error": "username"}');
@@ -282,28 +285,6 @@ app.get('/logout', function(req, res){
     req.session.save();
     res.clearCookie('auth', {path: '/'});
     res.redirect('/');
-});
-
-// dev obnly, used to show debugg information
-app.get('/test', function(req, res){
-
-    var message = "<h1>Debugg page</h1>";
-    message += "<style>body{font-family: arial; background-color: #2d2d2d; color: #fff;}</style>"
-    message += "<h2>Session</h2>";
-    message += '<pre><code>' + JSON.stringify(req.session) + '</code></pre>';
-    message += '<em>auth:</em> ' + req.session.auth;
-    message += '<br /><em>user:</em> ' + req.session.user;
-    message += '<br /><em>uid:</em> ' + req.session.uid;
-    message += "<h2>Users</h2>";
-
-    users = socket_api.getUsers();
-
-    for (var i = users.length - 1; i >= 0; i--) {
-        message += users[i] + "<br>";
-    };
-
-    res.end(message);
-
 });
 
 // 404 page, if no match above
