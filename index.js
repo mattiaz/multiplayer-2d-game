@@ -57,7 +57,7 @@ var url           = require('url');
 
 var settings = {
     http: {
-        port: process.env.PORT || 1337,
+        port: process.env.PORT || 8080,
         host:[
             'localhost',
             'mattias-pc',
