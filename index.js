@@ -72,7 +72,7 @@ var settings = {
 };
 
 // Import database from json data (users)
-var db_users = new json_db("save/users", true, true);
+var db_users = new json_db("export/users", true, true);
 // Connect a helper class to the database
 json_save.import_users(db_users);
 
