@@ -61,7 +61,8 @@ var settings = {
         host:[
             'localhost',
             'mattias-pc',
-            '10.60.24.206'
+            '10.60.24.206',
+            '2d-game.cleverapps.io'
         ]
     },
     app: {
