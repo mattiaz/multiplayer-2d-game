@@ -57,12 +57,11 @@ var url           = require('url');
 
 var settings = {
     http: {
-        port: process.env.PORT || 8080,
+        port: 80,
         host:[
             'localhost',
             'mattias-pc',
-            '10.60.24.206',
-            '2d-game.cleverapps.io'
+            '10.60.24.206'
         ]
     },
     app: {
@@ -72,7 +71,7 @@ var settings = {
 };
 
 // Import database from json data (users)
-var db_users = new json_db("export/users", true, true);
+var db_users = new json_db("save/users", true, true);
 // Connect a helper class to the database
 json_save.import_users(db_users);
 
